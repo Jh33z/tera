@@ -1,0 +1,81 @@
+<!-- user-table.component.html -->
+<div class="user-table" *ngIf="users$ | async as users">
+  <h1 *ngIf="users.length === 0">THERE IS NO USER</h1>
+  <mat-table [dataSource]="users" matSort>
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.id }} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Name
+      </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.name }} </mat-cell>
+    </ng-container>
+    <!--Last Name Column -->
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Last Name
+      </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.lastName }} </mat-cell>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Email
+      </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{ user.email }} </mat-cell>
+    </ng-container>
+
+    <!-- Role Column -->
+    <ng-container matColumnDef="role">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>
+        Role
+      </mat-header-cell>
+      <div>
+        <mat-cell *matCellDef="let user"> {{ user.role.roleTitle }} </mat-cell>
+      </div>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+      <mat-cell *matCellDef="let user" class="actions">
+        <button
+          mat-mini-fab
+          color="primary"
+          aria-label="Example icon button with a menu icon"
+        >
+          <mat-icon>details</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          color="primary"
+          aria-label="Example icon button with a menu icon"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          color="warn"
+          aria-label="Example icon button with a menu icon"
+          (click)="onDelete(user.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</div>
+<ng-container *ngIf="loaderService.isLoading | async">
+  <mat-progress-bar color="warn"></mat-progress-bar>
+</ng-container>

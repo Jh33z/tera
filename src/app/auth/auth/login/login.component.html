@@ -1,0 +1,50 @@
+<div class="main-container">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="error">
+        <p style="color: red">{{ error }}</p>
+      </div>
+      <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <div class="form">
+          <mat-progress-bar
+            mode="indeterminate"
+            *ngIf="loaderService.isLoading | async"
+          ></mat-progress-bar>
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input
+              type="email"
+              matInput
+              placeholder="Email"
+              formControlName="email"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label>Password</mat-label>
+            <input
+              type="password"
+              matInput
+              placeholder="Password"
+              formControlName="password"
+            />
+          </mat-form-field>
+        </div>
+        <div class="create-account">
+          <a class="new-acc" routerLink="/auth/register">Create account</a>
+        </div>
+        <button
+          type="submit"
+          class="mat-button"
+          mat-raised-button
+          color="primary"
+        >
+          Login
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

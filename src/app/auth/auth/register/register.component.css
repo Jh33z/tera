@@ -1,0 +1,31 @@
+.card {
+  width: 500px;
+}
+
+.main-container {
+  text-align: -webkit-center;
+}
+.mat-button {
+  width: 100%;
+  color: #fff;
+  height: 40px;
+}
+.form {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.create-account {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+.new-acc {
+  width: 50%;
+  text-decoration: underline;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(67, 67, 235);
+  border-radius: 12px;
+  padding: 5px 0;
+}
