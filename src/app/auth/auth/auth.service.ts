@@ -9,6 +9,7 @@ interface AuthResData {
   kind: string;
   idToken: string;
   email: string;
+  role: string;
   refreshToken: string;
   expiresIn: string;
   localId: string;
@@ -38,6 +39,7 @@ export class AuthService {
       .pipe(
         catchError(this.handleErr),
         tap((resData) => {
+          console.log(resData);
           // Store the user initially
           this.storeUser(
             resData.email,
