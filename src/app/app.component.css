@@ -1,20 +1,16 @@
-/* Apply Flexbox layout to the container */
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Make the container take up the full viewport height */
+  height: 100vh;
 }
 
-/* Ensure the header and footer have fixed heights */
 app-header,
 app-footer {
-  flex: 0 0 auto; /* Set flex-grow, flex-shrink, and flex-basis */
-  /* Set the desired height for the header and footer */
+  flex: 0 0 auto;
 }
 
-/* Make the main content area take up the remaining space */
 .main-content {
-  flex: 1; /* Grow to fill remaining space */
-  overflow-y: auto; /* Add vertical scrollbar if needed */
+  flex: 1;
+  overflow-y: auto;
   background-color: rgb(219, 219, 218);
 }

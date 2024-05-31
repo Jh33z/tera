@@ -1,7 +1,9 @@
 <div class="main-container">
   <mat-card class="card">
     <mat-card-header>
-      <mat-card-title>Register</mat-card-title>
+      <mat-card-title>{{
+        data && checkRoute() ? "Update" : "Register"
+      }}</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
@@ -14,22 +16,52 @@
             mode="indeterminate"
             *ngIf="loaderService.isLoading | async"
           ></mat-progress-bar>
+          <div class="row">
+            <mat-form-field>
+              <mat-label>Name</mat-label>
+              <input
+                type="text"
+                matInput
+                placeholder="Ex. Giorgi"
+                formControlName="name"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Last Name</mat-label>
+              <input
+                type="text"
+                matInput
+                placeholder="Ex. Kalandadze"
+                formControlName="lastName"
+              />
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input
+                type="email"
+                matInput
+                placeholder="Ex. ex@example.com"
+                formControlName="email"
+              />
+            </mat-form-field>
+          </div>
+          <mat-radio-group
+            aria-label="Select an option"
+            class="row"
+            formControlName="gender"
+          >
+            <mat-radio-button value="male">Male</mat-radio-button>
+            <mat-radio-button value="female">Female</mat-radio-button>
+          </mat-radio-group>
           <mat-form-field class="full-width">
-            <mat-label>Username</mat-label>
+            <mat-label>Phone Number</mat-label>
             <input
-              type="text"
+              type="number"
               matInput
-              placeholder="Username"
-              formControlName="Username"
-            />
-          </mat-form-field>
-          <mat-form-field class="full-width">
-            <mat-label>Email</mat-label>
-            <input
-              type="email"
-              matInput
-              placeholder="Email"
-              formControlName="email"
+              placeholder="Ex. 000000000"
+              formControlName="phoneNumber"
             />
           </mat-form-field>
 
@@ -42,12 +74,8 @@
               formControlName="password"
             />
           </mat-form-field>
-          <!-- <mat-form-field class="full-width">
-            <mat-label>Confirm Password</mat-label>
-            <input type="password" matInput placeholder="Confirm Password" />
-          </mat-form-field> -->
         </div>
-        <div class="create-account">
+        <div class="create-account" *ngIf="data && !checkRoute()">
           <a class="new-acc" routerLink="/auth/login">Back to login</a>
         </div>
         <button
@@ -56,7 +84,7 @@
           mat-raised-button
           color="primary"
         >
-          Sign up
+          {{ data && checkRoute() ? "Update user" : "Sign up" }}
         </button>
       </form>
     </mat-card-content>

@@ -4,14 +4,6 @@ export interface UserInterface {
   username: string;
 }
 
-export interface Login {
-  email: string;
-  password: string;
-}
-export interface Register {
-  email: string;
-  password: string;
-}
 export class User {
   constructor(
     public email: string,

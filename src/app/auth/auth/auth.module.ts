@@ -16,6 +16,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { HomeModule } from 'src/app/components/home/home.module';
+import {
+  MatDialogModule,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [AuthComponent, LoginComponent, RegisterComponent],
@@ -31,7 +40,17 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatTabsModule,
     HttpClientModule,
     MatProgressBarModule,
+    MatNativeDateModule,
+    MatRadioModule,
+    HomeModule,
+    MatDatepickerModule,
+    MatDialogModule,
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    { provide: MatDialogRef, useValue: {} },
+  ],
 })
 export class AuthModule {}

@@ -11,16 +11,10 @@ export class AuthComponent {
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
-  onLogin() {
-    console.log('clicked', this.loginForm.value);
-  }
 
   registerForm: FormGroup = this.fb.group({
     email: ['', Validators.required],
     password: ['', Validators.required],
     confirmPassword: ['', Validators.required],
   });
-  onRegister() {
-    console.log('clicked', this.registerForm.value);
-  }
 }

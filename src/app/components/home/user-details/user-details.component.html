@@ -1,0 +1,21 @@
+<div class="details-container">
+  <div *ngIf="userDetails$ | async as user">
+    <mat-card>
+      <div class="details-card">
+        <mat-card-header>
+          <mat-card-title>{{ user.name }} {{ user.lastName }}</mat-card-title>
+          <mat-card-subtitle>
+            <p><strong>Role:</strong> {{ getRole }}</p></mat-card-subtitle
+          >
+        </mat-card-header>
+        <mat-card-content>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p><strong>Phone Number:</strong>{{ user.phoneNumber }}</p>
+          <p><strong>Gender:</strong>{{ user.gender }}</p>
+          <p><strong>Role:</strong> {{ getRole }}</p>
+        </mat-card-content>
+      </div>
+      <button mat-button color="warn" (click)="prevPage()">Back to list</button>
+    </mat-card>
+  </div>
+</div>

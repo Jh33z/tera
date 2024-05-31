@@ -18,21 +18,21 @@ export class LoginComponent {
   error!: string;
 
   form: FormGroup = this.fb.group({
-    email: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
   onSubmit() {
     this.authService
       .login(this.form.value.email, this.form.value.password)
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res) => {
           localStorage.setItem('token', res.idToken);
           this.authService.currentUserSig.set(res);
           this.router.navigate(['/home']);
         },
-        (errorMsg) => {
+        error: (errorMsg) => {
           this.error = errorMsg;
-        }
-      );
+        },
+      });
   }
 }

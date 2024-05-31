@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { UserAddEditComponent } from 'src/app/shared/components/user-add-edit/user-add-edit.component';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/auth/auth/auth.service';
 import { Subscription } from 'rxjs';
@@ -25,25 +24,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   authService = inject(AuthService);
   router = inject(Router);
   dialog = inject(MatDialog);
+  role = localStorage.getItem('role');
   isAuthenticated = false;
 
   subscription!: Subscription;
 
-  openAddDialog() {
-    const dialogRef = this.dialog.open(UserAddEditComponent);
-    this.router.navigate(['/home'], { queryParams: { newUser: true } });
-    dialogRef.componentInstance.dialogCloser.subscribe(() => {
-      dialogRef.close();
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this.router.navigate(['/home'], { queryParams: {} });
-    });
-  }
-
   ngOnInit(): void {
     this.subscription = this.authService.user.subscribe(
       (user) => {
-        console.log('User subscription callback:', this.isAuthenticated);
         this.isAuthenticated = !!user;
       },
       (error) => {
@@ -54,6 +42,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout() {
     localStorage.setItem('token', '');
+    localStorage.setItem('role', '');
     this.authService.currentUserSig.set(null);
     this.router.navigate(['/auth/login']);
   }

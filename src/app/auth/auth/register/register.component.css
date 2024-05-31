@@ -1,6 +1,24 @@
 .card {
   width: 500px;
 }
+.row {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px;
+}
+.group {
+  justify-content: center;
+}
+.content {
+  padding-top: 10px;
+}
+mat-form-field {
+  width: 100%;
+}
+
+.dob {
+  width: 100%;
+}
 
 .main-container {
   text-align: -webkit-center;
@@ -19,6 +37,7 @@
   display: flex;
   justify-content: flex-end;
   margin-bottom: 10px;
+  margin-right: 20px;
 }
 .new-acc {
   width: 50%;

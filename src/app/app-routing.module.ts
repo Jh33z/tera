@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { authGuard } from './auth/auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
 
   {
     path: 'auth',
@@ -10,7 +11,8 @@ const routes: Routes = [
       import('./auth/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'home',
+    path: '',
+    canActivate: [authGuard],
     loadChildren: () =>
       import('./components/home/home.module').then((m) => m.HomeModule),
   },

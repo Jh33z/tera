@@ -1,45 +1,40 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
-import { Subject, catchError, tap, throwError } from 'rxjs';
+import { Subject, catchError, forkJoin, tap, throwError } from 'rxjs';
 import { User } from './auth.interface';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFireFunctions } from '@angular/fire/compat/functions';
+import { AuthResData } from 'src/app/shared/interfaces/auth.interface';
+import { IUser } from 'src/app/shared/interfaces/user.interface';
 
-interface AuthResData {
-  kind: string;
-  idToken: string;
-  email: string;
-  role: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-  registered?: boolean;
-}
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   http = inject(HttpClient);
   afAuth = inject(AngularFireAuth);
-  private fns = inject(AngularFireFunctions);
+  private role = '';
 
   user = new Subject<User | null>();
   currentUserSig = signal<AuthResData | undefined | null>(undefined);
 
-  signup(email: string, password: string) {
-    return this.http
+  signup(user: IUser, modify: boolean = true) {
+    const singUserUp = this.http
       .post<AuthResData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBrV82VMyxlhHWqXHcNxZpcBxzufedbqkM',
         {
-          email: email,
-          password: password,
+          email: user.email,
+          password: user.password,
           returnSecureToken: true,
         }
       )
       .pipe(
         catchError(this.handleErr),
         tap((resData) => {
-          console.log(resData);
+          if (user.email.split('@')[1].includes('admin')) {
+            this.role = 'admin';
+          } else {
+            this.role = 'user';
+          }
           // Store the user initially
           this.storeUser(
             resData.email,
@@ -47,12 +42,19 @@ export class AuthService {
             resData.idToken,
             +resData.expiresIn
           );
+          if (modify) {
+            localStorage.setItem('role', this.role);
+          }
         })
       );
+    const singUserInDB = this.http.post(
+      'https://tera-4d0b2-default-rtdb.firebaseio.com/users.json',
+      user
+    );
+    return forkJoin([singUserUp, singUserInDB]);
   }
 
   login(email: string, password: string) {
-    console.log('we are in the loginnnnnnnn');
     return this.http
       .post<AuthResData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBrV82VMyxlhHWqXHcNxZpcBxzufedbqkM',
@@ -65,14 +67,24 @@ export class AuthService {
       .pipe(
         catchError(this.handleErr),
         tap((resData) => {
+          if (email.split('@')[1].includes('admin')) {
+            this.role = 'admin';
+          } else {
+            this.role = 'user';
+          }
           this.storeUser(
             resData.email,
             resData.localId,
             resData.idToken,
             +resData.expiresIn
           );
+          localStorage.setItem('role', this.role);
         })
       );
+  }
+  isAuthenticated() {
+    const token = localStorage.getItem('token');
+    return !!token;
   }
 
   private storeUser(
