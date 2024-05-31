@@ -1,27 +1,27 @@
-# TeraTask
+User Management Dashboard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.14.
+front-end solutions... VERSIONS  ===   Angular 16.2.0, node 20.10.0
+back-end solution FIREBASE
 
-## Development server
+1) Firebase-ს ჩაშენებული არ აქვს role based controll, აქედან გამომდინარე ფრონტიდან ვწყვეტ იუზერი არის თუ არა ადმინი, თუ იმეილში @admin, ჩაწერთ დაარეგისტრირებს როგორც ადმინს, სხვა ნებისმიერ შემთხვევაში როგორც იუზერს.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+2) Login page (email and password)
+3) Registration page (with basic info about user)
+   იუზერის დარეგისტრირება/დალოგინება, ინფორმაციის შეყვანის შემთხვევაში იგზავნება რექუესთი firebase-ში და არეგისტრირებს ან ალოგინებს მომხმარებელს. დარეგისტრირების შემთხვევაში იუზერი ასევე ემატება მთავარ გვერდზე.
 
-## Code scaffolding
+4) home component
+   დალოგინების შემდეგ გადავდივართ home გვერდზე სადაც გვაქვს მომხმარებლების მონაცემები, თუ ვართ სისტემაში როგორც იუზერი გვაქვს წვდომა დეტალების გვერდზე, თუ ვართ ადმინის უფლებებით შესული, გვაქვს წვდომა მომხმარებლების დამატების, დაედიტების, დეტალების და წაშლის ღილაკებზე.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+5) add user
+   უფლება (admin)
+   თუ თქვენ დაარეგისტრირებთ მომმარებელს მთავარი გვერდიდან(არა ავტორიზაციიდან) ის ავტომატურად დაემატება ავტორიზაციაშიც, ანუ მთავარი გვერდიდან დარეგისტრირების დროს ჩაწერილი მეილით და პაროლი. სისტემიდან რომ გამოხვიდეთ დალოგინებას შეძლებთ, როლი განისაზღვრება ზემოთ მოყვანილი 1) პუნქტის მიხედვით.
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+6) edit user
+   უფლება (admin)
+   თქვენ შეგიძლიათ დააფდეითოდ დინამიურად მომხმარებელი, რომელიც აისახება მომხმარებლის სიაში.
+7) delete user
+   უფლება (admin)
+   თქვენ შეგიძლიათ წაშალოთ დინამიურად მომხმარებელი, რომელიც აისახება მომხმარებლის სიაში.
+8) user details
+   უფლება (admin/user)
+   თქვენ შეგიძლიათ ნახოთ იუზერის სრული დეტალები.
